@@ -661,6 +661,18 @@ end
 
 let modules_field name = Ordered_set_lang.field name
 
+module Ocamlformat = struct
+  type t =
+    { loc : Loc.t
+    ; files : Ordered_set_lang.t
+    }
+
+  let dparse =
+    let%map files = fields @@ modules_field "files"
+    and loc = loc in
+    {loc; files}
+end
+
 module Buildable = struct
   type t =
     { loc                      : Loc.t
@@ -1848,6 +1860,7 @@ type Stanza.t +=
   | Documentation   of Documentation.t
   | Tests           of Tests.t
   | Include_subdirs of Loc.t * Include_subdirs.t
+  | Ocamlformat     of Ocamlformat.t
 
 module Stanzas = struct
   type t = Stanza.t list
@@ -1922,6 +1935,9 @@ module Stanzas = struct
        and t = Include_subdirs.dparse
        and loc = loc in
        [Include_subdirs (loc, t)])
+    ; "ocamlformat",
+      (let%map t = Ocamlformat.dparse in
+       [Ocamlformat t])
     ]
 
   let jbuild_parser =

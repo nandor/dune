@@ -257,6 +257,9 @@ module Gen(P : Install_rules.Params) = struct
                 ~source_dirs:(Path.Set.singleton src_dir)
             in
             loop stanzas (merlin :: merlins) cctxs
+          | Ocamlformat f ->
+            Ocamlformat_rules.gen_rules sctx f ~dir ~scope ~dir_contents;
+            loop stanzas merlins cctxs
           | _ ->
             loop stanzas merlins cctxs
       in

@@ -127,6 +127,13 @@ module Dep_conf : sig
   val to_sexp : t Sexp.To_sexp.t
 end
 
+module Ocamlformat : sig
+  type t =
+    { loc : Loc.t
+    ; files : Ordered_set_lang.t
+    }
+end
+
 module Buildable : sig
   type t =
     { loc                      : Loc.t
@@ -438,6 +445,7 @@ type Stanza.t +=
   | Documentation   of Documentation.t
   | Tests           of Tests.t
   | Include_subdirs of Loc.t * Include_subdirs.t
+  | Ocamlformat     of Ocamlformat.t
 
 module Stanzas : sig
   type t = Stanza.t list

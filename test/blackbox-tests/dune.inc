@@ -619,6 +619,14 @@
    (progn (run %{exe:cram.exe} -test run.t) (diff? run.t run.t.corrected)))))
 
 (alias
+ (name ocamlformat)
+ (deps (package dune) (source_tree test-cases/ocamlformat))
+ (action
+  (chdir
+   test-cases/ocamlformat
+   (progn (run %{exe:cram.exe} -test run.t) (diff? run.t run.t.corrected)))))
+
+(alias
  (name ocamllex-jbuild)
  (deps (package dune) (source_tree test-cases/ocamllex-jbuild))
  (action
@@ -1001,6 +1009,7 @@
   (alias ocaml-config-macro)
   (alias ocaml-syntax)
   (alias ocamldep-multi-stanzas)
+  (alias ocamlformat)
   (alias ocamllex-jbuild)
   (alias odoc)
   (alias odoc-unique-mlds)
@@ -1110,6 +1119,7 @@
   (alias ocaml-config-macro)
   (alias ocaml-syntax)
   (alias ocamldep-multi-stanzas)
+  (alias ocamlformat)
   (alias ocamllex-jbuild)
   (alias optional)
   (alias output-obj)
